@@ -49,7 +49,6 @@ func main() {
 
 	dashboardWriter.Add(perses.BuildPersesOverview(project, datasource, clusterLabelName))
 	dashboardWriter.Add(prometheus.BuildPrometheusOverview(project, datasource, clusterLabelName))
-	dashboardWriter.Add(prometheus.BuildPrometheusRemoteWrite(project, datasource, clusterLabelName))
 	dashboardWriter.Add(blackbox.BuildBlackboxExporter(project, datasource, clusterLabelName))
 
 	dashboardWriter.Write()
