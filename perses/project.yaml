@@ -1,0 +1,6 @@
+kind: Project
+metadata:
+  name: perses-dev
+spec:
+  display:
+    name: "perses-dev"
