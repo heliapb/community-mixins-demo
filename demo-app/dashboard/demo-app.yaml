@@ -1,0 +1,114 @@
+kind: Dashboard
+metadata:
+  name: demo-app
+  createdAt:  0001-01-01T00:00:00Z
+  updatedAt:  0001-01-01T00:00:00Z
+  version: 0
+  project: perses-dev
+spec:
+  display:
+    name: demo-app
+  panels:
+    326e6ddb560841cf9003557177125074:
+      kind: Panel
+      spec:
+        display:
+          name: HTTP Requests by Status Code
+          description: HTTP Requests by Status Code
+        plugin:
+          kind: TimeSeriesChart
+          spec: {}
+        queries:
+          - kind: TimeSeriesQuery
+            spec:
+              plugin:
+                kind: PrometheusTimeSeriesQuery
+                spec:
+                  query: sum(http_requests_total{job="demo-app"}) by (code)
+                  seriesNameFormat: Total count of requests per status code
+    8f75ac852fc24712b0ca8f1c41251e5c:
+      kind: Panel
+      spec:
+        display:
+          name: App Version
+          description: App Version
+        plugin:
+          kind: TimeSeriesChart
+          spec: {}
+        queries:
+          - kind: TimeSeriesQuery
+            spec:
+              plugin:
+                kind: PrometheusTimeSeriesQuery
+                spec:
+                  query: version{job="demo-app"}
+    da01c263e9874ab89edb7727467b99b8:
+      kind: Panel
+      spec:
+        display:
+          name: HTTP Request Rate
+          description: HTTP Request Rate
+        plugin:
+          kind: TimeSeriesChart
+          spec: {}
+        queries:
+          - kind: TimeSeriesQuery
+            spec:
+              plugin:
+                kind: PrometheusTimeSeriesQuery
+                spec:
+                  query: sum(rate(http_requests_total{job="demo-app"}[5m])) by (code, method)
+    ceac9bae690e4f53b5d95de6bd256962:
+      kind: Panel
+      spec:
+        display:
+          name: Requests per Handler
+          description: Requests per Handler
+        plugin:
+          kind: TimeSeriesChart
+          spec: {}
+        queries:
+          - kind: TimeSeriesQuery
+            spec:
+              plugin:
+                kind: PrometheusTimeSeriesQuery
+                spec:
+                  query: |
+                    sum(rate(http_request_duration_seconds_count{job="demo-app"}[5m])) by (handler)
+                  seriesNameFormat: Requests per Handler
+  layouts:
+    - kind: Grid
+      spec:
+        display:
+          title: Demo App
+          collapse:
+            open: true
+        items:
+          - x: 0
+            "y": 0
+            width: 12
+            height: 7
+            content:
+              $ref: "#/spec/panels/da01c263e9874ab89edb7727467b99b8"
+          - x: 12
+            "y": 0
+            width: 12
+            height: 7
+            content:
+              $ref: "#/spec/panels/326e6ddb560841cf9003557177125074"
+          - x: 12
+            "y": 7
+            width: 12
+            height: 6
+            content:
+              $ref: "#/spec/panels/8f75ac852fc24712b0ca8f1c41251e5c"
+          - x: 0
+            "y": 7
+            width: 12
+            height: 6
+            content:
+              $ref: "#/spec/panels/ceac9bae690e4f53b5d95de6bd256962"
+  variables: []
+  duration: 15m
+  refreshInterval: 0s
+  datasources: {}

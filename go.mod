@@ -2,7 +2,11 @@ module github.com/saswatamcode/community-mixins-demo
 
 go 1.25.3
 
-require github.com/perses/community-mixins v0.0.0-20251018155815-4b15e295e37a
+require (
+	github.com/perses/community-mixins v0.0.0-20251018155815-4b15e295e37a
+	github.com/prometheus/client_golang v1.23.2
+	golang.org/x/net v0.46.0
+)
 
 require (
 	cel.dev/expr v0.24.0 // indirect
@@ -41,7 +45,6 @@ require (
 	github.com/perses/plugins/timeserieschart v0.11.0 // indirect
 	github.com/perses/promql-builder v0.2.0 // indirect
 	github.com/prometheus-operator/prometheus-operator/pkg/apis/monitoring v0.86.1 // indirect
-	github.com/prometheus/client_golang v1.23.2 // indirect
 	github.com/prometheus/client_model v0.6.2 // indirect
 	github.com/prometheus/common v0.67.1 // indirect
 	github.com/prometheus/procfs v0.17.0 // indirect
@@ -58,7 +61,6 @@ require (
 	go.yaml.in/yaml/v2 v2.4.3 // indirect
 	golang.org/x/crypto v0.43.0 // indirect
 	golang.org/x/exp v0.0.0-20251017212417-90e834f514db // indirect
-	golang.org/x/net v0.46.0 // indirect
 	golang.org/x/oauth2 v0.32.0 // indirect
 	golang.org/x/sys v0.37.0 // indirect
 	golang.org/x/text v0.30.0 // indirect
