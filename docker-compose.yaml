@@ -1,4 +1,13 @@
 services:
+  demo-app:
+    build:
+      context: .
+      dockerfile: demo-app/Dockerfile
+    container_name: demo-app
+    ports:
+      - "8081:8081"
+    restart: unless-stopped
+
   perses:
     image: persesdev/perses:v0.53-distroless-debug
     container_name: perses

@@ -13,6 +13,12 @@ scrape_configs:
         labels:
           instance: 'prometheus'
 
+  - job_name: 'demo-app'
+    static_configs:
+      - targets: ['demo-app:8081']
+        labels:
+          instance: 'demo-app'
+
   # Blackbox exporter metrics
   - job_name: 'blackbox-exporter'
     static_configs:
