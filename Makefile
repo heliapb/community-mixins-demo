@@ -12,12 +12,6 @@ build:
 	@echo "Building rules and dashboard"
 	@$(ENVVARS) $(GOCMD) run $(GOMAIN) --output-rules-dir="./rules/prometheus" --output-rules="yaml" --output-dir="./dashboards/perses" --output="yaml" --project="perses-dev" --datasource="prometheus-datasource"
 
-.PHONY: demo-app
-demo-app:
-	@echo "Applying demo app dashboard"
-	@percli login http://localhost:8080
-	@percli apply -d ./demo-app/dashboard/
-
 .PHONY: apply-dashboards
 apply-dashboards:
 	@echo "Applying dashboards"
@@ -25,3 +19,4 @@ apply-dashboards:
 	@percli apply -d ./dashboards/perses/perses
 	@percli apply -d ./dashboards/perses/prometheus
 	@percli apply -d ./dashboards/perses/blackbox-exporter
+	@percli apply -d ./dashboards/perses/demo-app

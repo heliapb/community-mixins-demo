@@ -1,0 +1,108 @@
+kind: Dashboard
+metadata:
+    name: demo-app
+    createdAt: 0001-01-01T00:00:00Z
+    updatedAt: 0001-01-01T00:00:00Z
+    version: 0
+    project: perses-dev
+spec:
+    panels:
+        "0_0":
+            kind: Panel
+            spec:
+                display:
+                    name: HTTP Request Rate
+                    description: HTTP Request Rate
+                plugin:
+                    kind: TimeSeriesChart
+                    spec: {}
+                queries:
+                    - kind: TimeSeriesQuery
+                      spec:
+                        plugin:
+                            kind: PrometheusTimeSeriesQuery
+                            spec:
+                                query: sum by (code, method) (rate(http_requests_total{job="demo-app"}[$__rate_interval]))
+                                seriesNameFormat: '{{code}} - {{method}}'
+        "0_1":
+            kind: Panel
+            spec:
+                display:
+                    name: HTTP Requests by Status Code
+                    description: HTTP Requests by Status Code
+                plugin:
+                    kind: TimeSeriesChart
+                    spec: {}
+                queries:
+                    - kind: TimeSeriesQuery
+                      spec:
+                        plugin:
+                            kind: PrometheusTimeSeriesQuery
+                            spec:
+                                query: sum by (code) (http_requests_total{job="demo-app"})
+                                seriesNameFormat: Status {{code}}
+        "0_2":
+            kind: Panel
+            spec:
+                display:
+                    name: App Uptime
+                    description: Application availability status
+                plugin:
+                    kind: TimeSeriesChart
+                    spec: {}
+                queries:
+                    - kind: TimeSeriesQuery
+                      spec:
+                        plugin:
+                            kind: PrometheusTimeSeriesQuery
+                            spec:
+                                query: up{job="demo-app"}
+                                seriesNameFormat: Status
+        "0_3":
+            kind: Panel
+            spec:
+                display:
+                    name: App Version
+                    description: App Version
+                plugin:
+                    kind: TimeSeriesChart
+                    spec: {}
+                queries:
+                    - kind: TimeSeriesQuery
+                      spec:
+                        plugin:
+                            kind: PrometheusTimeSeriesQuery
+                            spec:
+                                query: version{job="demo-app"}
+                                seriesNameFormat: Version {{version}}
+    layouts:
+        - kind: Grid
+          spec:
+            display:
+                title: Demo App
+            items:
+                - x: 0
+                  "y": 0
+                  width: 12
+                  height: 8
+                  content:
+                    $ref: '#/spec/panels/0_0'
+                - x: 12
+                  "y": 0
+                  width: 12
+                  height: 8
+                  content:
+                    $ref: '#/spec/panels/0_1'
+                - x: 0
+                  "y": 8
+                  width: 12
+                  height: 8
+                  content:
+                    $ref: '#/spec/panels/0_2'
+                - x: 12
+                  "y": 8
+                  width: 12
+                  height: 8
+                  content:
+                    $ref: '#/spec/panels/0_3'
+    duration: 15m
